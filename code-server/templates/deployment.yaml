@@ -33,7 +33,7 @@ spec:
           mountPath: /home/coder/.config/code-server
           readOnly: true
         - name: ssh
-          mountPath: /home/coder/.ssh
+          mountPath: /home/coder/.ssh/mnt
           readOnly: true
       volumes:
       - name: share
