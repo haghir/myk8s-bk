@@ -1,0 +1,10 @@
+#!/bin/sh
+
+while true; do
+	find /var/local/repos -type d -name "*.git" | while read repo; do
+		cd "$repo"
+		git remote update --prune
+		sleep $1
+	done
+	sleep $2
+done

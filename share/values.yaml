@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: localhost:32000/share
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 22
+  nodePort: 30222
+
+storages:
+  data:
+    path: <path to data>
+    size: 4Ti
+    hostname: <hostname>
+  backup:
+    path: <path to backup>
+    size: 4Ti
+    hostname: <hostname>
+
+ssh:
+  secretName: share-ssh

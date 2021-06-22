@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "share.fullname" . }}
+  labels:
+    {{- include "share.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "share.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "share.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: ssh
+          containerPort: 22
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /var/local/share/data
+        - name: backup
+          mountPath: /var/local/share/backup
+        - name: ssh
+          mountPath: /root/.ssh/mnt
+          readOnly: true
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "share.storages.data.name" . }}
+      - name: backup
+        persistentVolumeClaim:
+          claimName: {{ include "share.storages.backup.name" . }}
+      - name: ssh
+        secret:
+          secretName: {{ .Values.ssh.secretName }}
+          defaultMode: 0400

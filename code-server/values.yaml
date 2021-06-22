@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: codercom/code-server
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+  - host: code-server.example.local
+    paths: [ "/" ]
+  tls:
+  - secretName: example-tls
+    hosts:
+    - code-server.example.local
+
+storages:
+  share:
+    size: 10Gi
+    path: <path to the directory>
+    hostname: example
+
+config:
+  secretName: code-server-config

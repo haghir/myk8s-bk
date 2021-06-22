@@ -1,0 +1,23 @@
+replicaCount: 1
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: mariadb
+  version: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3306
+
+storages:
+  data:
+    size: 2Gi
+    path: <path to storage>
+    hostname: <hostname>
+
+mariadb:
+  rootPassword:
+    secretName: mariadb-env
+    key: rootPassword

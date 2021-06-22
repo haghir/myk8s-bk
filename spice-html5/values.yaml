@@ -1,0 +1,29 @@
+# Default values for spice-html5.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: localhost:32000/spice-html5
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5959
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+  - host: spice.example.local
+    paths: [ "/" ]
+  tls:
+  - secretName: example-tls
+    hosts:
+    - spice.example.local
+
+spice:
+  host: vm.example.local
+  port: 5900

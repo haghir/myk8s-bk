@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "collector.fullname" . }}
+  labels:
+    {{- include "collector.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "collector.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "collector.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: ssh
+          containerPort: 22
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /var/local/collector/data
+        - name: backup
+          mountPath: /var/local/collector/backup
+        - name: config
+          mountPath: /usr/local/etc/collector
+          readOnly: true
+        - name: ssh
+          mountPath: /root/.ssh/mnt
+          readOnly: true
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "collector.storages.data.name" . }}
+      - name: backup
+        persistentVolumeClaim:
+          claimName: {{ include "collector.storages.backup.name" . }}
+      - name: config
+        secret:
+          secretName: {{ .Values.config.secretName }}
+          defaultMode: 0400
+      - name: ssh
+        secret:
+          secretName: {{ .Values.ssh.secretName }}
+          defaultMode: 0400

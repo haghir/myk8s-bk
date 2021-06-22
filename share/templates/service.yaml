@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "share.fullname" . }}
+  labels:
+    {{- include "share.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: ssh
+    targetPort: 22
+    port: {{ .Values.service.port }}
+    {{- with .Values.service.nodePort }}
+    nodePort: {{ . }}
+    {{- end }}
+    protocol: TCP
+  selector:
+    {{- include "share.selectorLabels" . | nindent 4 }}

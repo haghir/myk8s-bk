@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: localhost:32000/collector
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 22
+  nodePort: 30220
+
+storages:
+  data:
+    size: 4Ti
+    path: <path to the data directory>
+    hostname: <hostname>
+  backup:
+    size: 4Ti
+    path: <path to the backup directory>
+    hostname: <hostname>
+
+config:
+  secretName: collector-config
+
+ssh:
+  secretName: collector-ssh

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gitbk.fullname" . }}
+  labels:
+    {{- include "gitbk.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "gitbk.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "gitbk.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args: [ {{ .Values.args.sleep | quote }}, {{ .Values.args.interval | quote }} ]
+        volumeMounts:
+        - name: repos
+          mountPath: /var/local/repos
+        - name: ssh
+          mountPath: /root/.ssh
+          readOnly: true
+      volumes:
+      - name: repos
+        persistentVolumeClaim:
+          claimName: {{ include "gitbk.storages.repos.name" . }}
+      - name: ssh
+        secret:
+          secretName: {{ .Values.ssh.secretName }}
+          defaultMode: 0400
