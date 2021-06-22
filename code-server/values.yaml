@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: codercom/code-server
+  repository: localhost:32000/code-server
   pullPolicy: IfNotPresent
 
 service:
