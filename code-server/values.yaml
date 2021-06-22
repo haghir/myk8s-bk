@@ -27,3 +27,6 @@ storages:
 
 config:
   secretName: code-server-config
+
+ssh:
+  secretName: code-server-ssh
