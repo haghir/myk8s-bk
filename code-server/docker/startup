@@ -1,3 +1,0 @@
-#!/bin/sh
-ln -s /home/coder/.ssh/mnt/* /home/coder/.ssh/
-/usr/bin/entrypoint.sh "--bind-addr" "0.0.0.0:8080" "."
