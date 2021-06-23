@@ -27,23 +27,9 @@ spec:
           containerPort: 8080
           protocol: TCP
         volumeMounts:
-        - name: share
-          mountPath: /home/coder/.local/share/code-server
-        - name: config
-          mountPath: /home/coder/.config/code-server
-          readOnly: true
-        - name: ssh
-          mountPath: /home/coder/.ssh/mnt
-          readOnly: true
+        - name: home
+          mountPath: /home/coder
       volumes:
-      - name: share
+      - name: home
         persistentVolumeClaim:
-          claimName: {{ include "code-server.storages.share.name" . }}
-      - name: config
-        secret:
-          secretName: {{ .Values.config.secretName }}
-          defaultMode: 0400
-      - name: ssh
-        secret:
-          secretName: {{ .Values.ssh.secretName }}
-          defaultMode: 0400
+          claimName: {{ include "code-server.storages.home.name" . }}

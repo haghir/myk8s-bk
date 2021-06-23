@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "code-server.storages.share.name" . }}
+  name: {{ include "code-server.storages.home.name" . }}
 spec:
   accessModes:
   - ReadWriteOnce
   volumeMode: Filesystem
   resources:
     requests:
-      storage: {{ .Values.storages.share.size | quote }}
-  storageClassName: {{ include "code-server.storages.share.name" . }}
+      storage: {{ .Values.storages.home.size | quote }}
+  storageClassName: {{ include "code-server.storages.home.name" . }}

@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ include "code-server.storages.share.name" . }}
+  name: {{ include "code-server.storages.home.name" . }}
 spec:
   capacity:
-    storage: {{ .Values.storages.share.size | quote }}
+    storage: {{ .Values.storages.home.size | quote }}
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ include "code-server.storages.share.name" . }}
+  storageClassName: {{ include "code-server.storages.home.name" . }}
   local:
-    path: {{ .Values.storages.share.path | quote }}
+    path: {{ .Values.storages.home.path | quote }}
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -19,4 +19,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - {{ .Values.storages.share.hostname | quote }}
+          - {{ .Values.storages.home.hostname | quote }}

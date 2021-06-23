@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: localhost:32000/code-server
+  repository: codercom/code-server
   pullPolicy: IfNotPresent
 
 service:
@@ -20,13 +20,7 @@ ingress:
     - code-server.example.local
 
 storages:
-  share:
+  home:
     size: 10Gi
     path: <path to the directory>
     hostname: example
-
-config:
-  secretName: code-server-config
-
-ssh:
-  secretName: code-server-ssh

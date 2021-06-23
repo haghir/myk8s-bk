@@ -63,8 +63,8 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create the name of the storage mounted as the share directory.
+Create the name of the storage mounted as the home directory.
 */}}
-{{- define "code-server.storages.share.name" -}}
-{{- printf "%s-storage-share" (include "code-server.fullname" .) -}}
+{{- define "code-server.storages.home.name" -}}
+{{- printf "%s-storage-home" (include "code-server.fullname" .) -}}
 {{- end -}}
