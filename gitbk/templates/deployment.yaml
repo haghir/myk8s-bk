@@ -20,16 +20,14 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         args: [ {{ .Values.args.sleep | quote }}, {{ .Values.args.interval | quote }} ]
         volumeMounts:
+        - name: home
+          mountPath: /root
         - name: repos
           mountPath: /var/local/repos
-        - name: ssh
-          mountPath: /root/.ssh
-          readOnly: true
       volumes:
+      - name: home
+        persistentVolumeClaim:
+          claimName: {{ include "gitbk.storages.home.name" . }}
       - name: repos
         persistentVolumeClaim:
           claimName: {{ include "gitbk.storages.repos.name" . }}
-      - name: ssh
-        secret:
-          secretName: {{ .Values.ssh.secretName }}
-          defaultMode: 0400

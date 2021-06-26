@@ -23,21 +23,19 @@ spec:
           containerPort: 22
           protocol: TCP
         volumeMounts:
+        - name: home
+          mountPath: /root
         - name: data
           mountPath: /var/local/share/data
         - name: backup
           mountPath: /var/local/share/backup
-        - name: ssh
-          mountPath: /root/.ssh/mnt
-          readOnly: true
       volumes:
+      - name: home
+        persistentVolumeClaim:
+          claimName: {{ include "share.storages.home.name" . }}
       - name: data
         persistentVolumeClaim:
           claimName: {{ include "share.storages.data.name" . }}
       - name: backup
         persistentVolumeClaim:
           claimName: {{ include "share.storages.backup.name" . }}
-      - name: ssh
-        secret:
-          secretName: {{ .Values.ssh.secretName }}
-          defaultMode: 0400

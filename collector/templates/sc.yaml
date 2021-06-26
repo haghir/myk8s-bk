@@ -1,6 +1,13 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
+  name: {{ include "collector.storages.home.name" . }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
   name: {{ include "collector.storages.data.name" . }}
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer

@@ -1,6 +1,19 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: {{ include "gitbk.storages.home.name" . }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .Values.storages.home.size }}
+  storageClassName: {{ include "gitbk.storages.home.name" . }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: {{ include "gitbk.storages.repos.name" . }}
 spec:
   accessModes:

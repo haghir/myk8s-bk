@@ -63,6 +63,13 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
+Create the name of the home directory
+*/}}
+{{- define "share.storages.home.name" -}}
+{{- printf "%s-storage-home" (include "share.fullname" .) -}}
+{{- end -}}
+
+{{/*
 Create the name of the storage to store data files
 */}}
 {{- define "share.storages.data.name" -}}

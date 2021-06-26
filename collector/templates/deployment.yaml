@@ -23,6 +23,8 @@ spec:
           containerPort: 22
           protocol: TCP
         volumeMounts:
+        - name: home
+          mountPath: /root
         - name: data
           mountPath: /var/local/collector/data
         - name: backup
@@ -30,10 +32,10 @@ spec:
         - name: config
           mountPath: /usr/local/etc/collector
           readOnly: true
-        - name: ssh
-          mountPath: /root/.ssh/mnt
-          readOnly: true
       volumes:
+      - name: home
+        persistentVolumeClaim:
+          claimName: {{ include "collector.storages.home.name" . }}
       - name: data
         persistentVolumeClaim:
           claimName: {{ include "collector.storages.data.name" . }}
@@ -43,8 +45,4 @@ spec:
       - name: config
         secret:
           secretName: {{ .Values.config.secretName }}
-          defaultMode: 0400
-      - name: ssh
-        secret:
-          secretName: {{ .Values.ssh.secretName }}
           defaultMode: 0400

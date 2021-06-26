@@ -1,9 +1,7 @@
+# gitbk 1.0.4
 FROM alpine
 RUN apk update && apk add --no-cache git openssh-client
-RUN mkdir -p /var/local/repos && \
-    mkdir /root/.ssh && \
-    mkdir /root/known_hosts.d && \
-    echo "UserKnownHostsFile ~/known_hosts.d/%k" >> /etc/ssh/ssh_config
+RUN mkdir -p /var/local/repos
 COPY ./gitbk /usr/local/bin
 RUN chmod 755 /usr/local/bin/gitbk
 ENTRYPOINT ["gitbk"]

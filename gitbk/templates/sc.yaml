@@ -1,6 +1,13 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
+  name: {{ include "gitbk.storages.home.name" . }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
   name: {{ include "gitbk.storages.repos.name" . }}
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer

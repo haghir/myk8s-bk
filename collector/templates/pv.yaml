@@ -1,13 +1,36 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: {{ include "collector.storages.home.name" . }}
+spec:
+  capacity:
+    storage: {{ .Values.storages.home.size | quote }}
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ include "collector.storages.home.name" . }}
+  local:
+    path: {{ .Values.storages.home.path | quote }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.storages.home.hostname | quote }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: {{ include "collector.storages.data.name" . }}
 spec:
   capacity:
     storage: {{ .Values.storages.data.size | quote }}
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: {{ include "collector.storages.data.name" . }}
   local:
@@ -30,7 +53,7 @@ spec:
     storage: {{ .Values.storages.backup.size | quote }}
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: {{ include "collector.storages.backup.name" . }}
   local:

@@ -63,6 +63,13 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
+Create the name of the home directory
+*/}}
+{{- define "collector.storages.home.name" }}
+{{- printf "%s-storage-home" (include "collector.fullname" .) -}}
+{{- end -}}
+
+{{/*
 Create the name of the data storage
 */}}
 {{- define "collector.storages.data.name" }}

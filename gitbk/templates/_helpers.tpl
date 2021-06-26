@@ -63,6 +63,13 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
+Create the name of the home directory.
+*/}}
+{{- define "gitbk.storages.home.name" -}}
+{{- printf "%s-storage-home" (include "gitbk.fullname" .) -}}
+{{- end -}}
+
+{{/*
 Create the name of the storage containing git repositories.
 */}}
 {{- define "gitbk.storages.repos.name" -}}

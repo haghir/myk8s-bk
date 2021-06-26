@@ -1,6 +1,29 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: {{ include "gitbk.storages.home.name" . }}
+spec:
+  capacity:
+    storage: {{ .Values.storages.home.size }}
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ include "gitbk.storages.home.name" . }}
+  local:
+    path: {{ .Values.storages.home.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.storages.home.hostname }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: {{ include "gitbk.storages.repos.name" . }}
 spec:
   capacity:

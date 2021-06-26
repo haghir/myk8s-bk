@@ -5,13 +5,14 @@ image:
   pullPolicy: IfNotPresent
 
 storages:
+  home:
+    path: <path to the home directory>
+    size: 1Gi
+    hostname: <hostname>
   repos:
     path: <path to the repositories directory>
     size: 20Gi
     hostname: <hostname>
-
-ssh:
-  secretName: gitbk-ssh
 
 args:
   sleep: 1

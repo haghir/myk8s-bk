@@ -1,6 +1,0 @@
-#!/bin/sh
-
-cp /root/.ssh/mnt/authorized_keys /root/.ssh
-chmod 400 /root/.ssh/authorized_keys
-
-/usr/sbin/sshd -D -e
