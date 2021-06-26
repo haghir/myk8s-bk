@@ -12,7 +12,7 @@ service:
 storages:
   home:
     path: <path to data>
-    size: 4Ti
+    size: 1Gi
     hostname: <hostname>
   data:
     path: <path to data>
