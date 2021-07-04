@@ -26,6 +26,9 @@ spec:
         - name: http
           containerPort: 8080
           protocol: TCP
+        - name: dev
+          containerPort: 3000
+          protocol: TCP
         volumeMounts:
         - name: home
           mountPath: /home/coder
