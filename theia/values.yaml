@@ -1,8 +1,12 @@
 replicaCount: 1
 
 image:
-  repository: localhost:32000/code-server
+  repository: theiaide/theia-full
   pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
 
 service:
   type: ClusterIP
@@ -16,15 +20,19 @@ ingress:
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - foo'
   hosts:
-  - host: code-server.example.local
+  - host: theia.example.local
     paths: [ "/" ]
   tls:
   - secretName: example-tls
     hosts:
-    - code-server.example.local
+    - theia.example.local
 
 storages:
-  home:
-    size: 10Gi
+  theia:
     path: <path to the directory>
+    size: 50Gi
+    hostname: example
+  project:
+    path: <path to the directory>
+    size: 10Gi
     hostname: example

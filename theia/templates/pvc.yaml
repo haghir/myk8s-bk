@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "theia.storages.theia.name" . }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .Values.storages.theia.size | quote }}
+  storageClassName: {{ include "theia.storages.theia.name" . }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "theia.storages.project.name" . }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .Values.storages.project.size | quote }}
+  storageClassName: {{ include "theia.storages.project.name" . }}
