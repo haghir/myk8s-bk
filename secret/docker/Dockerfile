@@ -1,6 +1,6 @@
-# secret 1.0.0
+# secret 1.0.2
 FROM alpine:latest
-RUN apk add openssh rsync gnupg make
+RUN apk add openssh rsync gnupg make pwgen nano
 COPY ./bksec /usr/local/bin/bksec
 RUN ssh-keygen -A
 RUN passwd -u root
