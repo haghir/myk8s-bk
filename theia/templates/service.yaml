@@ -7,9 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - name: http
+    port: {{ .Values.service.port }}
+    targetPort: 3000
+    protocol: TCP
   selector:
     {{- include "theia.selectorLabels" . | nindent 4 }}
