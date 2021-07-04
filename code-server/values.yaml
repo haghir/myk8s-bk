@@ -4,10 +4,6 @@ image:
   repository: localhost:32000/code-server
   pullPolicy: IfNotPresent
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-
 services:
   http:
     type: ClusterIP
