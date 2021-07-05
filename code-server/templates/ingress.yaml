@@ -1,7 +1,6 @@
 {{- if .Values.ingress.enabled -}}
-{{- $svcName := include "code-server.services.http.name" . -}}
+{{- $fullName := include "code-server.fullname" . -}}
 {{- $svcPort := .Values.services.http.port -}}
-{{- $devName := include "code-server.services.dev.name" . -}}
 {{- $devPort := .Values.services.dev.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
@@ -10,7 +9,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ include "code-server.fullname" . }}
+  name: {{ $fullName }}
   labels:
     {{- include "code-server.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -35,7 +34,7 @@ spec:
       {{- range .Values.ingress.hosts.http.paths }}
       - path: {{ . }}
         backend:
-          serviceName: {{ $svcName }}
+          serviceName: {{ $fullName }}
           servicePort: {{ $svcPort }}
       {{- end }}
   - host: {{ .Values.ingress.hosts.dev.host | quote }}
@@ -44,7 +43,7 @@ spec:
       {{- range .Values.ingress.hosts.dev.paths }}
       - path: {{ . }}
         backend:
-          serviceName: {{ $devName }}
+          serviceName: {{ $fullName }}
           servicePort: {{ $devPort }}
       {{- end }}
 {{- end }}

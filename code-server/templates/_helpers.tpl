@@ -63,20 +63,6 @@ Create the name of the service account to use
 {{- end -}}
 
 {{/*
-Create the name of the http service
-*/}}
-{{- define "code-server.services.http.name" -}}
-{{- printf "%s-service-http" (include "code-server.fullname" .) -}}
-{{- end -}}
-
-{{/*
-Create the name of the dev service
-*/}}
-{{- define "code-server.services.dev.name" -}}
-{{- printf "%s-service-dev" (include "code-server.fullname" .) -}}
-{{- end -}}
-
-{{/*
 Create the name of the storage mounted as the home directory.
 */}}
 {{- define "code-server.storages.home.name" -}}
