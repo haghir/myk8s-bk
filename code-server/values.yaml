@@ -15,10 +15,9 @@ services:
 ingress:
   enabled: true
   annotations:
-    # refs: https://kubernetes.github.io/ingress-nginx/examples/auth/basic/
     nginx.ingress.kubernetes.io/auth-type: basic
     nginx.ingress.kubernetes.io/auth-secret: basic-auth
-    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - foo'
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
   hosts:
     http:
       host: code-server.example.local
