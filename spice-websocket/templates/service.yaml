@@ -5,11 +5,11 @@ metadata:
   labels:
     {{- include "spice-websocket.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: 5900
       protocol: TCP
-      name: http
+      name: spice
   selector:
     {{- include "spice-websocket.selectorLabels" . | nindent 4 }}
