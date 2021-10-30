@@ -5,11 +5,15 @@ metadata:
   labels:
     {{- include "code-server.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.services.http.type }}
   ports:
   - name: http
-    port: {{ .Values.service.port }}
+    port: {{ .Values.services.http.port }}
     targetPort: 8080
+    protocol: TCP
+  - name: dev
+    port: {{ .Values.services.dev.port }}
+    targetPort: 3000
     protocol: TCP
   selector:
     {{- include "code-server.selectorLabels" . | nindent 4 }}

@@ -4,20 +4,32 @@ image:
   repository: localhost:32000/code-server
   pullPolicy: IfNotPresent
 
-service:
-  type: ClusterIP
-  port: 80
+services:
+  http:
+    type: ClusterIP
+    port: 80
+  dev:
+    type: ClusterIP
+    port: 3000
 
 ingress:
   enabled: true
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
   hosts:
-  - host: code-server.example.local
-    paths: [ "/" ]
+    http:
+      host: code-server.example.local
+      paths: [ "/" ]
+    dev:
+      host: code-server-dev.example.local
+      paths: [ "/" ]
   tls:
   - secretName: example-tls
     hosts:
     - code-server.example.local
+    - code-server-dev.example.local
 
 storages:
   home:
