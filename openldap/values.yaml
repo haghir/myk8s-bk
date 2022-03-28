@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: osixia/openldap
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+services:
+  type: NodePort
+  ldap:
+    port: 389
+    nodePort: 389
+  ldaps:
+    port: 636
+    nodePort: 636
+
+adminPassword:
+  secretName: secretName
+  key: key
