@@ -1,13 +1,11 @@
 replicaCount: 1
+nameOverride: ""
+fullnameOverride: ""
 
 image:
   repository: osixia/openldap
   pullPolicy: IfNotPresent
   tag: "latest"
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 services:
   type: NodePort
@@ -18,6 +16,18 @@ services:
     port: 636
     nodePort: 636
 
-adminPassword:
-  secretName: secretName
-  key: key
+storages:
+  data:
+    size: 10Mi
+    path: <path to data storage>
+    hostname: <hostname>
+
+admin:
+  name: <admin name>
+  password:
+    secretName: <secret name for admin password>
+    key: <secret key for admin password>
+
+basedn: <base dn>
+
+domain: <domain>

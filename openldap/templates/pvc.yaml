@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "openldap.storages.data.name" . }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: "{{ .Values.storages.data.size }}"
+  storageClassName: {{ include "openldap.storages.data.name" . }}

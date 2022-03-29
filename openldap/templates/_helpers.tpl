@@ -1,15 +1,15 @@
 {{/*
-Expand the name of the chart.
-*/}}
+ Expand the name of the chart.
+ */}}
 {{- define "openldap.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
+ Create a default fully qualified app name.
+ We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+ If release name contains chart name it will be used as a full name.
+ */}}
 {{- define "openldap.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
@@ -24,15 +24,15 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-Create chart name and version as used by the chart label.
-*/}}
+ Create chart name and version as used by the chart label.
+ */}}
 {{- define "openldap.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
-Common labels
-*/}}
+ Common labels
+ */}}
 {{- define "openldap.labels" -}}
 helm.sh/chart: {{ include "openldap.chart" . }}
 {{ include "openldap.selectorLabels" . }}
@@ -43,16 +43,16 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Selector labels
-*/}}
+ Selector labels
+ */}}
 {{- define "openldap.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "openldap.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
-*/}}
+ Create the name of the service account to use
+ */}}
 {{- define "openldap.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
 {{- default (include "openldap.fullname" .) .Values.serviceAccount.name }}
@@ -62,8 +62,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Create the name of the storage containing LDAP database
+ Create the name of the storage containing LDAP database
  */}}
 {{- define "openldap.storages.data.name" -}}
 {{- printf "%s-storage-data" (include "openldap.fullname" .) -}}
+{{- end -}}
+
+{{/*
+Create the name of the data storage
+*/}}
+{{- define "openldap.storages.data.name" -}}
+{{- printf "%s-storage-data" (include "openldap.fullname") -}}
 {{- end -}}
